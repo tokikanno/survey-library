@@ -661,7 +661,21 @@ export class QuestionSelectBase extends Question {
     var order = this.choicesOrder.toLowerCase();
     if (order == "asc") return this.sortArray(array, 1);
     if (order == "desc") return this.sortArray(array, -1);
-    if (order == "random") return this.randomizeArray(array);
+    if (order == "random") {
+
+      var pinned = new Array<ItemValue>();
+      var notPinned = new Array<ItemValue>();
+
+      array.forEach(v => {
+        if (v.isPinned) {
+          pinned.push(v);
+        } else {
+          notPinned.push(v);
+        }
+      });
+
+      return this.randomizeArray(notPinned).concat(pinned);
+    }
     return array;
   }
   private sortArray(array: Array<ItemValue>, mult: number): Array<ItemValue> {

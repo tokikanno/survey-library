@@ -183,6 +183,7 @@ export class ItemValue extends Base {
     return hasChanded;
   }
   private visibleIfValue: string = "";
+  private isPinnedValue: boolean = false;
   private itemValue: any;
   private locTextValue: LocalizableString;
   private isVisibleValue: boolean = true;
@@ -285,6 +286,12 @@ export class ItemValue extends Base {
   public set visibleIf(val: string) {
     this.visibleIfValue = val;
   }
+  public get isPinned(): boolean {
+    return this.isPinnedValue;
+  }
+  public set isPinned(val: boolean) {
+    this.isPinnedValue = val;
+  }
   public get isVisible() {
     return this.isVisibleValue;
   }
@@ -353,7 +360,8 @@ Serializer.addClass(
       serializationProperty: "locText"
     },
     { name: "visibleIf:condition", visible: false },
-    { name: "enableIf:condition", visible: false }
+    { name: "enableIf:condition", visible: false },
+    "isPinned:boolean"
   ],
   (value: any) => new ItemValue(value)
 );
